@@ -20,6 +20,10 @@ if [ ! -d "$REPO_DIRECTORY/.git" ]; then
   exit 1
 fi
 
+# Trust GitHub to avoid host verification errors
+ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+# Let Git trust this directory (due to UID mismatch in Docker)
 git config --global --add safe.directory "$REPO_DIRECTORY"
 
 
