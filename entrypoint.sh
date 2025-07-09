@@ -20,6 +20,9 @@ if [ ! -d "$REPO_DIRECTORY/.git" ]; then
   exit 1
 fi
 
+git config --global --add safe.directory "$REPO_DIRECTORY"
+
+
 cd "$REPO_DIRECTORY"
 echo "🔄 Running git pull in $REPO_DIRECTORY..."
 git pull
