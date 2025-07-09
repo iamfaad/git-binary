@@ -1,15 +1,28 @@
 #!/bin/sh
 set -e
 
-if [ -z "$GIT_REPO" ] || [ -z "$GIT_USERNAME" ] || [ -z "$GIT_TOKEN" ]; then
-    echo "❌ Missing GIT_REPO, GIT_USERNAME, or GIT_TOKEN environment variable"
+# Directory where the Git repo exists (default to /odoo-addon if not set)
+if [ -z "$REPO_DIRECTORY" ]; then
+    echo "❌ Missing REPO_DIRECTORY environment variable"
     exit 1
 fi
 
-# Build URL with token
-AUTHED_REPO=$(echo "$GIT_REPO" | sed "s#https://#https://$GIT_USERNAME:$GIT_TOKEN@#")
+# Ensure SSH private key exists
+if [ ! -f /root/.ssh/id_rsa ]; then
+  echo "❌ SSH private key not found at /root/.ssh/id_rsa"
+  exit 1
+fi
 
-echo "📦 Pulling repo from $AUTHED_REPO"
-git pull "$AUTHED_REPO"
 
-echo "✅ Git pull completed. Exiting."
+# Check if the target directory exists and is a git repo
+if [ ! -d "$REPO_DIRECTORY/.git" ]; then
+  echo "❌ No Git repository found in $REPO_DIRECTORY"
+  exit 1
+fi
+
+cd "$REPO_DIRECTORY"
+echo "🔄 Running git pull in $REPO_DIRECTORY..."
+git pull
+
+
+echo "✅ git pull completed successfully."
