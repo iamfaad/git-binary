@@ -1,1 +1,15 @@
-
+services:
+  git-sync:
+    image: registry.expresssignproducts.com/gitsync:v1-reset
+    environment:
+      - REPO_DIRECTORY=/git-repo/enterprise
+      - REPO_BRANCH=17.0
+      - COMMIT_AFTER_DATE="2025-07-14 00:00"
+      - COMMIT_BEFORE_DATE="2025-07-15 00:00"
+#//      - COMMT= hash
+    volumes:
+      - /etc/dokploy/vol-odoo-git-sync-test/git-repo:/git-repo
+      - /etc/dokploy/vol-odoo-git-sync-test/ssh-key:/root/.ssh
+    deploy:
+      restart_policy:
+        condition: none
