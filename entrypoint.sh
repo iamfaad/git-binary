@@ -42,7 +42,7 @@ else
   fi
 
   echo "🔍 Searching for commit between $COMMIT_AFTER_DATE and $COMMIT_BEFORE_DATE..."
-  COMMIT_HASH=$(git log --after="$COMMIT_AFTER_DATE" --before="$COMMIT_BEFORE_DATE" | grep -i commit | head -1 | awk '{print $2}')
+  COMMIT_HASH=$(git log origin/$REPO_BRANCH--after="$COMMIT_AFTER_DATE" --before="$COMMIT_BEFORE_DATE" | grep -i commit | head -1 | awk '{print $2}')
 
   if [ -z "$COMMIT" ]; then
     echo "❌ No commit found in the given date range"
