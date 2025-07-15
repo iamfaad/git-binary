@@ -44,14 +44,14 @@ else
   echo "🔍 Searching for commit between $COMMIT_AFTER_DATE and $COMMIT_BEFORE_DATE..."
   export COMMIT_HASH=$(git log origin/$REPO_BRANCH --after="$COMMIT_AFTER_DATE" --before="$COMMIT_BEFORE_DATE" | grep -i commit | head -1 | awk '{print $2}')
 
-  if [ -z "$COMMIT" ]; then
+  if [ -z "$COMMIT_HASH" ]; then
     echo "❌ No commit found in the given date range"
     exit 6
   fi
 fi
 
 # Perform the reset
-echo "🔁 Resetting to commit $COMMIT..."
-git reset --hard "$COMMIT"
+echo "🔁 Resetting to commit $COMMIT_HASH..."
+git reset --hard "$COMMIT_HASH"
 
 echo "✅ Git reset completed successfully."
