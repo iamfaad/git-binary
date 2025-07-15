@@ -1,6 +1,6 @@
 services:
   git-sync:
-    image: registry.expresssignproducts.com/gitreset:v1-reset
+    image: registry.expresssignproducts.com/gitreset:v1
     environment:
       - REPO_DIRECTORY=/git-repo/enterprise
       - REPO_BRANCH=17.0
