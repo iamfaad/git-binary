@@ -1,8 +1,6 @@
 services:
   git-sync:
     image: registry.expresssignproducts.com/gitsync:v1-reset
-    secrets:
-      - local-reg
     environment:
       - REPO_DIRECTORY=/git-repo/enterprise
       - REPO_BRANCH=17.0
@@ -15,6 +13,3 @@ services:
     deploy:
       restart_policy:
         condition: none
-secrets:
-  local-reg:
-    external: true
